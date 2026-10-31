@@ -1,6 +1,6 @@
 ---
 name: maintain-context
-description: Records the current picture of a project, one slice at a time, and publishes a new snapshot when a cited source changes. Use it when the agent needs the boundary, the facts, or the ADRenaline plugins that fit, including when the project's shape is not known yet or when several projects share a workspace.
+description: Records the current picture of a project. The first scan writes the index, the boundary, each slice that has a source, the map, and the recommendation when a signal was read. A later change publishes a new snapshot. Use it when the agent needs that picture, including when the project's shape is not known yet or when several projects share a workspace.
 ---
 
 <p align="right">Language:&emsp;<img alt="English" src="https://raw.githubusercontent.com/ADRenaline-Suite/.github/main/profile/lang-en-on.svg" align="middle" style="vertical-align:middle"> <a href="SKILL.es.md" style="vertical-align:middle"><img alt="Español" src="https://raw.githubusercontent.com/ADRenaline-Suite/.github/main/profile/lang-es-off.svg" align="middle" style="vertical-align:middle"></a></p>
@@ -16,10 +16,11 @@ Source: ISO/IEC/IEEE 42010:2022 (entity of interest and environment); Rozanski a
 ## Before writing
 
 1. Read only the reference for this situation: [start](references/start.md), [index](references/index.md), [boundary](references/boundary.md), [slice](references/slice.md), [map](references/map.md), [recommendation](references/recommendation.md), or [refresh](references/refresh.md).
-2. A command names one reference. Write that situation only. `/context-start` is the situation that writes the index and the boundary.
-3. A request that asks for the picture of a project and names no command does the same as `/context-start`: the index and the boundary, each with its own `<NNN>`, and then stops. It does not write a slice, a map, or a recommendation.
+2. A command names one reference. Write that situation only. `/context-start` is the first picture: the index, the boundary, each slice that has a source, the map, and the recommendation when a signal was read. It does not refresh.
+3. A request that asks for the picture of a project and names no command does the same as `/context-start`. Each file has its own `<NNN>`. A concern with no source, and a recommendation with no signal, are not files.
 4. Do not draw a diagram, write an ADR, write a domain model, write a reader-facing document, or copy another plugin's skill. Ask that plugin when the request is its artifact.
-5. Do not install a plugin. Do not write `.cursor/rules`, agents, commands, or skills. The index may contain one pointer sentence. The person copies it if they want it.
+5. Do not install a plugin. Do not write `.cursor/rules`, an agents folder, commands, or skills. The index contains one pointer sentence. `/context-start` writes that same sentence once into `AGENTS.md` at the project root and does not rewrite the rest of that file.
+6. A folder is suite output only when its `ORIGIN.json` was read and `suite` is `ADRenaline-Suite`. The index records the folder, the plugin, and that file. The steps are in [index](references/index.md). Do not infer it from the folder name. Do not copy the files inside into the index. Do not install the plugin because the folder exists. A file inside may still be cited when it was read for another concern.
 
 ## Language
 
@@ -39,11 +40,13 @@ The index, the boundary, and the map do not stop. What was not read is the words
 
 ## Delivery
 
-The folder is `project-context/` at the project root. If `.cursor/adrenaline.json` has `outputDirs["plugin-project-context"]` set to a relative path, without `..` and not absolute, use that path. If the file, the key, or a valid path is missing, use `project-context/` and, in the last case, say so. Create the folder if it does not exist. Do not write outside it.
+The folder is `project-context/` at the project root. If `.cursor/adrenaline.json` has `outputDirs["plugin-project-context"]` set to a relative path, without `..` and not absolute, use that path. If the file, the key, or a valid path is missing, use `project-context/` and, in the last case, say so. Create the folder if it does not exist. Do not write outside it, except the one pointer sentence `/context-start` places in `AGENTS.md`.
 
 The file is `<NNN>-<type>-<topic>.md`. `<NNN>` is the next free integer, three digits, and it is not reused. `<type>` is the English piece id.
 
 Keep `<folder>/STATUS.md` with columns `N`, `archivo`, `estado`, `sustituye`, and `notas`.
+
+Keep `<folder>/ORIGIN.json` beside `STATUS.md`. It is not an `<NNN>` file and it has no row in `STATUS.md`. Write it when the folder is created. On a later delivery, write it again only when it is missing or a field differs. The fields are `suite` `ADRenaline-Suite`, `plugin` `plugin-project-context`, `repository` `https://github.com/ADRenaline-Suite/plugin-project-context`, and `convention` `adr-001`. The marker names the folder. It does not say that each file inside is unchanged.
 
 `notas` for a slice or a recommendation lists `sources: <relative path>, <relative path>; read: <UTC timestamp>` using `yyyy-MM-ddTHH:mm:ssZ`. Do not put `|` inside `notas`: it breaks the `STATUS.md` table. Paths are relative to the project root, with no `..`. A judgment row (index purpose, boundary, recommendation) uses the same `sources:` and `read:` when a file was read. The session hook reads those notes and may append `drift:`. It does not change `estado` and it does not write a new file.
 
@@ -59,8 +62,9 @@ If the topic already has a file:
 
 Before you close, evaluate this list and the `## Done` list in the reference for this situation. A command fixes the situation: use the reference that command names. Every item is true, or you fix the delivery in this turn. Do not leave a file that fails an item. Do not mark it `accepted` while an item fails. A template the reference names is applied and recorded under Assumed; the delivery uses the state that reference names. A prerequisite that still stops the delivery is not a failed list: follow "When a prerequisite is missing" and write no files for that piece.
 
-- The situation of this turn is the only one written, unless the request asked for two. Each delivery has its own `<NNN>`.
+- A command other than `/context-start` writes only the situation it names. `/context-start` writes the first picture, and each file has its own `<NNN>`. It does not refresh.
 - Files are only in the output folder, named as Delivery says. `<NNN>` is not reused. `STATUS.md` matches the files and the state this situation allows. A gap the reference leaves as `proposed` stays `proposed`.
+- `ORIGIN.json` is in the output folder. Its four fields match this plugin. It has no row in `STATUS.md`.
 - The artifact language matches the request. `STATUS.md` columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`.
 - Every field the template requires is filled. No placeholder remains (`#…`, `<task>`, `TBD`, lorem ipsum). A field the reference tells you to leave blank until data arrives is blank on purpose, and the state is the one the reference names.
 - Nothing this skill forbids was added. The reference names what stays out.
@@ -70,4 +74,4 @@ Before you close, evaluate this list and the `## Done` list in the reference for
 
 Input: a repository folder `billing/` whose `README.md` heading is "Billing API", with no other source files. The request is "what is this project?", written in English, and it names no command.
 
-`accepted` output: `001-index-billing.md` (entity of interest Billing API, source `README.md`; modules "not observed") and `002-boundary-billing.md` (inside: this repository; outside and external entities: "not observed"). No slice and no recommendation. The reply names `project-context/`, both files, `001` and `002`, and `accepted`.
+`accepted` output: `001-index-billing.md` (entity of interest Billing API, source `README.md`; where to look next names `002` and `003`), `002-boundary-billing.md` (inside: this repository; outside and external entities: "not observed"), and `003-map-billing.md` (one row, relation "not observed"). No slice: none of the four concerns has a source. No recommendation: no signal was read. The reply names `project-context/`, the three files, `001`, `002`, and `003`, and `accepted`.

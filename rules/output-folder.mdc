@@ -9,6 +9,8 @@ Every file this plugin creates goes in `project-context/` at the project root.
 
 If `.cursor/adrenaline.json` exists and `outputDirs["plugin-project-context"]` holds a path, use that path. The path is relative to the project root, with no `..` and not absolute. If it is not valid, use `project-context/` and say so.
 
-Create the folder if it does not exist. Do not write anywhere else. Do not write `.cursor/rules`, agents, commands, or skills.
+Create the folder if it does not exist. Do not write anywhere else. Do not write `.cursor/rules`, an agents folder, commands, or skills. `/context-start` may add one pointer sentence to `AGENTS.md` at the project root. It does not rewrite the rest of that file.
 
 Write the artifact in the language of the request. If the request names a language, use that one. Otherwise use the language the request is written in. Keep names the person already used. The type in the file name stays the English piece id. `STATUS.md` columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`.
+
+Keep `ORIGIN.json` in that folder, beside `STATUS.md`. The fields are `suite` `ADRenaline-Suite`, `plugin` `plugin-project-context`, `repository` `https://github.com/ADRenaline-Suite/plugin-project-context`, and `convention` `adr-001`. It is not an `<NNN>` file and it has no row in `STATUS.md`. Write it when the folder is created, and again only if it is missing or a field differs. The marker names the folder. It does not say that each file inside is unchanged.

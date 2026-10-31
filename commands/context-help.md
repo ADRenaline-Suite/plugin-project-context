@@ -20,7 +20,7 @@ Keep the section headings, in this order: Plugin, Commands, Skills, Rules, then 
 ## Commands
 
 - [**/context-help**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/README.md) — This help (one-line catalog of the plugin).
-- [**/context-start**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/references/start.md) — First picture (skill maintain-context): the index and the boundary in one step, including when the shape is not known yet. It does not write a slice, a map, or a recommendation.
+- [**/context-start**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/references/start.md) — First picture (skill maintain-context): the index, the boundary, each slice that has a source, the map, and the recommendation when a signal was read. It writes one pointer sentence into AGENTS.md. It does not refresh.
 - [**/context-index**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/references/index.md) — Project index (skill maintain-context): the entity of interest, the purpose when a source states it, and where to look next, including when the shape is not known yet.
 - [**/context-boundary**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/references/boundary.md) — Project boundary (skill maintain-context): what is inside, what is outside, and the external entities, with what was not observed left unfilled.
 - [**/context-slice**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/references/slice.md) — Context slice (skill maintain-context): one concern, such as how to run, conventions, modules, or gaps, where each fact cites its source.
@@ -30,7 +30,7 @@ Keep the section headings, in this order: Plugin, Commands, Skills, Rules, then 
 
 ## Skills
 
-- [**maintain-context**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/SKILL.md) — Records the current picture of a project, one slice at a time, and publishes a new snapshot when a cited source changes.
+- [**maintain-context**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/skills/maintain-context/SKILL.md) — Records the current picture of a project. The first scan writes the index, the boundary, each slice that has a source, the map, and the recommendation when a signal was read. A later change publishes a new snapshot.
 
 ## Rules
 
@@ -52,6 +52,7 @@ Keep the section headings, in this order: Plugin, Commands, Skills, Rules, then 
 | --- | --- |
 | `.md` | Index, boundary, slice, map, or recommendation. |
 | `STATUS.md` | State of each file. Columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`. |
+| `ORIGIN.json` | Folder marker: `suite`, `plugin`, `repository`, `convention` `adr-001`. Not an `<NNN>` file. The index lists a folder only when this file was read |
 
 ## Not in this plugin
 

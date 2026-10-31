@@ -19,9 +19,10 @@ Los cortes cuyas fuentes citadas cambiaron, y una nota de deriva en un juicio qu
 3. Si esos archivos no cambiaron, deja la fila.
 4. Si cambió un hecho extraído de un corte, escribe el siguiente `<NNN>` de ese asunto, marca la fila anterior `superseded` y la nueva `accepted`. Actualiza `read:`.
 5. Si el índice aceptado nombra un archivo que este turno sustituyó, escribe el siguiente índice para que «Dónde mirar después» apunte al archivo nuevo, y sustituye el índice anterior. Ese apuntador es un hecho, no un propósito nuevo.
-6. Si cambió una fuente citada por el propósito del índice, el límite o la recomendación, no reescribas ese juicio. Añade `drift: <ruta>` en `notas` cuando aún no esté. Deja `estado` como está. La respuesta nombra el command que lo republica: `/context-index`, `/context-boundary` o `/context-recommend`.
-7. No enmiendes un archivo `accepted` en el mismo sitio salvo que la persona pida enmendar ese archivo.
-8. El hook de sesión puede haber escrito ya `drift:`. Este command vuelve a leer la fuente antes de publicar un corte. La nota del hook no es una instantánea nueva.
+6. Lee `ORIGIN.json` en cada hijo directo de la raíz del proyecto y en cada ruta de `outputDirs` de `.cursor/adrenaline.json`. Si el índice aceptado no tiene la sección de salida de la suite, o sus filas no coinciden con esos archivos, escribe el siguiente índice. Conserva el propósito y el apuntador. Actualiza la salida de la suite y, si este turno también sustituyó un archivo, dónde mirar después. Sustituye el índice anterior. Un marcador que falta o no es válido no es una fila. No infieras una carpeta por su nombre.
+7. Si cambió una fuente citada por el propósito del índice, el límite o la recomendación, no reescribas ese juicio. Añade `drift: <ruta>` en `notas` cuando aún no esté. Deja `estado` como está. La respuesta nombra el command que lo republica: `/context-index`, `/context-boundary` o `/context-recommend`.
+8. No enmiendes un archivo `accepted` en el mismo sitio salvo que la persona pida enmendar ese archivo.
+9. El hook de sesión puede haber escrito ya `drift:`. Este command vuelve a leer la fuente antes de publicar un corte. La nota del hook no es una instantánea nueva.
 
 ## Plantilla
 
@@ -55,3 +56,4 @@ O, en este orden:
 - Una fuente sin cambios dejó su fila en su sitio. Un hecho de corte que cambió es un `<NNN>` nuevo, y la fila anterior está `superseded`.
 - Un propósito, un límite o una recomendación que cambiaron no se reescribieron. `drift:` nombra la ruta, y la respuesta nombra el command que republica ese juicio.
 - No se editó un archivo `accepted` en el mismo sitio. La nota del hook no se trató como una instantánea nueva. Sin `STATUS.md`, no se escribió archivo.
+- Un conjunto de salida de la suite distinto del índice aceptado es un índice `<NNN>` nuevo. El propósito no cambió. No se añadió una carpeta sin `ORIGIN.json`.

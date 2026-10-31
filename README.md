@@ -12,36 +12,27 @@ The instructions are in English. The file the plugin saves follows the language 
 
 The first scan does not run by itself. The session hook only marks drift after a picture already exists.
 
-Type `/context-start`. It writes the index and the boundary in `project-context/`, then stops. A purpose or an external entity the repository does not state stays "not observed". It does not write a slice, a map, or a recommendation.
+Type `/context-start`. It writes the first picture in `project-context/`: the index, the boundary, a slice for each concern that has a source, the map, and the recommendation when a signal was read. A concern with no source, and a recommendation with no signal, are not files. It also writes one sentence into `AGENTS.md` at the project root, telling the agent to open the accepted index. If that sentence is already there, the file stays as it is. A purpose or an external entity the repository does not state stays "not observed". It does not refresh.
 
-The same two files, one at a time, are `/context-index` and then `/context-boundary`.
+The same pieces, one at a time, stay `/context-index`, `/context-boundary`, `/context-slice`, `/context-map`, and `/context-recommend`.
 
-After that, ask for a slice, the map, or the recommendation. When a cited file changes, `/context-refresh` publishes the next snapshot.
+The first run and the later update are in [Order of the commands](#order-of-the-commands).
 
 ## Order of the commands
 
-`/context-start` is the only command of the first scan. The others run when you type them. The session hook only writes `drift:` after a cited file changes. It does not publish the next snapshot.
+Two paths. On the first run there is no picture yet: `/context-start` writes the index, the boundary, the concerns that have a source, the projects, and the plugin list when a signal was read. When a picture already exists, that is the update: the hook writes `drift:` if a cited file changed, and `/context-refresh` publishes the next snapshot. The first path does not run by itself.
 
 ```mermaid
 flowchart TD
-  startNode([Start]) --> first["/context-start writes the index and the boundary"]
-  first --> concern{Need one concern?}
-  concern -->|yes| slice["/context-slice"]
-  concern -->|no| projects
-  slice --> projects{Several projects?}
-  projects -->|yes| map["/context-map"]
-  projects -->|no| plugins
-  map --> plugins{Want the plugin list?}
-  plugins -->|yes| recommend["/context-recommend"]
-  plugins -->|no| changed
-  recommend --> changed{A cited file changed?}
-  changed -->|yes| drift["The hook writes drift"]
-  drift --> refresh["/context-refresh"]
-  changed -->|no| doneNode([Stop])
+  startNode([Start]) --> firstTime{First run?}
+  firstTime -->|yes| startCmd["/context-start writes the index, the boundary, the concerns, the projects, and the plugin list"]
+  startCmd --> doneNode([Stop])
+  firstTime -->|no| drift["The hook writes drift if a cited file changed"]
+  drift --> refresh["/context-refresh publishes the next snapshot"]
   refresh --> doneNode
 ```
 
-The figure above is the order. The UML 2.5.1 activity with the same steps was drawn in the workspace that asked for it. It is not a file of this repository. PlantUML draws that activity natively.
+The figure above is the order. The UML 2.5.1 activity with the same two paths was drawn in the workspace that asked for it. It is not a file of this repository. PlantUML draws that activity natively.
 
 ## Who it is for
 
@@ -92,7 +83,7 @@ gh skill install ADRenaline-Suite/plugin-project-context
 
 It uses no variables and no services.
 
-Each delivery is saved in `project-context/` at the project root, with a monotonic `<NNN>` that is not reused. The folder keeps `STATUS.md` (`proposed` | `accepted` | `deprecated` | `superseded`). When choosing what to follow, `accepted` wins. The prose follows the language of the request. The type in the file name stays the English piece id. The `STATUS.md` columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`.
+Each delivery is saved in `project-context/` at the project root, with a monotonic `<NNN>` that is not reused. The folder keeps `STATUS.md` (`proposed` | `accepted` | `deprecated` | `superseded`). When choosing what to follow, `accepted` wins. Beside it, `ORIGIN.json` names this plugin (`suite`, `plugin`, `repository`, `convention` `adr-001`). It is not an `<NNN>` file. The index lists a folder as suite output only when that file was read. The prose follows the language of the request. The type in the file name stays the English piece id. The `STATUS.md` columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`.
 
 To use another folder, add `.cursor/adrenaline.json` to the project:
 
@@ -110,7 +101,7 @@ The path is relative to the project root and cannot contain `..`. Claude Code an
 
 If a command name is unfamiliar, read [What each command is for](#what-each-command-is-for) before the tables below.
 
-The first scan is [Start](#start): `/context-start`. In Claude Code, `/plugin-project-context:context-start`. Asking in plain language for the picture, with no command, writes the same two files and then stops. A request in Spanish produces a Spanish file.
+The first scan is [Start](#start): `/context-start`. In Claude Code, `/plugin-project-context:context-start`. Asking in plain language for the picture, with no command, writes that same first picture and then stops. A request in Spanish produces a Spanish file.
 
 Before it closes, the command checks the done list of that skill and of that piece. A file that fails a check is corrected in the same turn, or it is not marked `accepted`.
 
@@ -118,7 +109,7 @@ A fact is `accepted` only when it cites a source or says "not observed". A slice
 
 ## What each command is for
 
-You do not need to know the architecture terms. Each command writes one piece. `/context-start` writes the first two. The skill named with it is only the group.
+You do not need to know the architecture terms. Each command writes one piece. `/context-start` writes the first picture. The skill named with it is only the group.
 
 ### `/context-help`
 
@@ -130,7 +121,7 @@ Use this group to record what the project is, what sits outside it, and which su
 
 #### `/context-start`
 
-Writes the index and the boundary, then stops. Use it for the first scan, including when the shape of the project is not known yet. The session hook does not do this step.
+Writes the index, the boundary, each slice that has a source, the map, and the recommendation when a signal was read, then stops. It also writes one pointer sentence into `AGENTS.md`. Use it for the first scan, including when the shape of the project is not known yet. The session hook does not do this step. It does not refresh.
 
 #### `/context-index`
 
@@ -166,7 +157,7 @@ Reads the sources the accepted slices cite. When a source changed, it writes the
 
 | Command | Piece | Manual |
 | --- | --- | --- |
-| `/context-start` | Index and boundary | [start](skills/maintain-context/references/start.md) |
+| `/context-start` | Index, boundary, slices with a source, map, recommendation when a signal was read | [start](skills/maintain-context/references/start.md) |
 | `/context-index` | Index | [index](skills/maintain-context/references/index.md) |
 | `/context-boundary` | Boundary | [boundary](skills/maintain-context/references/boundary.md) |
 | `/context-slice` | Slice | [slice](skills/maintain-context/references/slice.md) |
@@ -178,12 +169,13 @@ Reads the sources the accepted slices cite. When a source changed, it writes the
 
 | File | What it holds |
 | --- | --- |
-| `<NNN>-index-<topic>.md` | Entity of interest, purpose, where to look next |
+| `<NNN>-index-<topic>.md` | Entity of interest, purpose, where to look next, suite output |
 | `<NNN>-boundary-<topic>.md` | Inside, outside, external entities |
 | `<NNN>-slice-<topic>.md` | One concern, each fact with its source |
 | `<NNN>-map-<topic>.md` | Projects and observed relations |
 | `<NNN>-recommendation-<topic>.md` | Suite plugins matched to a signal, `proposed` |
 | `STATUS.md` | `N`, `archivo`, `estado`, `sustituye`, `notas` |
+| `ORIGIN.json` | Folder marker: `suite`, `plugin`, `repository`, `convention` `adr-001`. Not an `<NNN>` file |
 
 ## License
 

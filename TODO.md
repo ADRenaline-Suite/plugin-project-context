@@ -51,7 +51,7 @@ No hay una norma única para «la carpeta de contexto de un agente». Cada decis
 - El contexto de una aplicación que recupera o llama a un modelo: `plugin-genai`.
 - El caso de uso: `plugin-project-manager`.
 - Instalar, copiar o empaquetar plugins de la suite.
-- Escribir `.cursor/rules`, agents, commands o skills en el proyecto. Eso duplicaría la foto. El único texto que puede proponerse, dentro de `project-context/`, es un apuntador de una línea: leer el índice aceptado. La persona lo aplica si quiere. Los skills del oficio siguen siendo los del plugin de la suite.
+- Escribir `.cursor/rules`, una carpeta de agents, commands o skills en el proyecto. Eso duplicaría la foto. El índice lleva un apuntador de una línea: leer el índice aceptado. `/context-start` escribe esa misma frase una vez en `AGENTS.md` de la raíz y no reescribe el resto. Los skills del oficio siguen siendo los del plugin de la suite.
 - Aceptar en automático un juicio. Un hook, si se añade al implementar, solo puede marcar deriva.
 
 ## Plan de componentes
@@ -74,7 +74,7 @@ skills/maintain-context/
 Commands (oficio `context`). Cada uno remite al skill y nombra la referencia:
 
 - `/context-help` — catálogo.
-- `/context-start` — el índice y el límite, en un paso. Es el primer escaneo.
+- `/context-start` — la primera foto en un paso: índice, límite, cada corte que tenga fuente, mapa y recomendación si hay señal. No refresca.
 - `/context-index` — la foto mínima, también cuando la forma aún no se conoce.
 - `/context-boundary` — el límite y las entidades externas.
 - `/context-slice` — un corte con fuente.
@@ -85,7 +85,7 @@ Commands (oficio `context`). Cada uno remite al skill y nombra la referencia:
 Rules:
 
 - `rules/output-folder.mdc` — carpeta `project-context/`.
-- `rules/context-fidelity.mdc` — sin fuente no hay hecho aceptado; lo no leído queda «no observado»; no se dibuja, no se escribe el ADR, no se copia otro plugin; la recomendación nace `proposed`; un hook no acepta juicios; un `accepted` no se enmienda solo.
+- `rules/context-fidelity.mdc` — sin fuente no hay hecho aceptado; lo no leído queda «no observado»; no se dibuja, no se escribe el ADR, no se copia otro plugin; la recomendación nace `proposed`; un hook no acepta juicios; un `accepted` no se enmienda solo. Una carpeta es salida de la suite solo si se leyó su `ORIGIN.json`.
 
 Hook, solo al implementar y solo en Cursor: un script que compara las rutas citadas por los cortes aceptados. Si una cambió, anota deriva en `STATUS.md` (`notas`). No escribe el corte nuevo. Claude Code no comparte ese archivo. El refresco portable es `/context-refresh`. El evento concreto se elige al implementar, con el esquema de hooks vigente. `afterFileEdit` sobre la propia carpeta `project-context/` no se usa: se realimentaría.
 
@@ -99,7 +99,8 @@ Carpeta por defecto: `project-context/` (o la de `.cursor/adrenaline.json`).
 - `<NNN>-map-<tema>.md`
 - `<NNN>-recommendation-<tema>.md`
 - `STATUS.md`: `N`, `archivo`, `estado`, `sustituye`, `notas`. En `notas`, la deriva y las fuentes.
+- `ORIGIN.json`: `suite`, `plugin`, `repository`, `convention` `adr-001`. Sin fila en `STATUS.md`. El índice lista esa carpeta solo cuando el archivo se leyó.
 
 El texto sigue el idioma del pedido. El tipo del nombre sigue en inglés.
 
-Un proyecto cuya forma no se conoce entrega índice y límite, y se detiene. Los cortes y la recomendación esperan a que haya una fuente.
+`/context-start` es el primer disparo. Escribe el índice, el límite, cada corte que tenga fuente, el mapa y la recomendación si hay señal. Un corte sin fuente y una recomendación sin señal no crean archivo. El refresco no entra en ese paso.

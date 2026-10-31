@@ -17,9 +17,10 @@ The slices whose cited sources changed, and a drift note on a judgment that a ho
 3. If those files are unchanged, leave the row.
 4. If an extracted fact in a slice changed, write the next `<NNN>` for that concern, mark the previous row `superseded`, and mark the new row `accepted`. Update `read:`.
 5. If the accepted index names a file that this turn superseded, write the next index so "Where to look next" points at the new file, and supersede the previous index. That pointer is a fact, not a new purpose.
-6. If a source cited by an index purpose, a boundary, or a recommendation changed, do not rewrite that judgment. Append `drift: <path>` in `notas` when it is not already there. Leave `estado` as it is. The reply names the command that republishes it: `/context-index`, `/context-boundary`, or `/context-recommend`.
-7. Do not amend an `accepted` file in place unless the user asked to amend that same file.
-8. The session hook may already have written `drift:`. This command still re-reads the source before publishing a slice. The hook's note is not a new snapshot.
+6. Read `ORIGIN.json` in each direct child of the project root and in each `outputDirs` path of `.cursor/adrenaline.json`. If the accepted index has no Suite output section, or its rows do not match those files, write the next index. Keep the purpose and the pointer. Update suite output and, when this turn also superseded a file, where to look next. Supersede the previous index. A missing or invalid marker is not a row. Do not infer a folder from its name.
+7. If a source cited by an index purpose, a boundary, or a recommendation changed, do not rewrite that judgment. Append `drift: <path>` in `notas` when it is not already there. Leave `estado` as it is. The reply names the command that republishes it: `/context-index`, `/context-boundary`, or `/context-recommend`.
+8. Do not amend an `accepted` file in place unless the user asked to amend that same file.
+9. The session hook may already have written `drift:`. This command still re-reads the source before publishing a slice. The hook's note is not a new snapshot.
 
 ## Template
 
@@ -53,3 +54,4 @@ Or, in this order:
 - An unchanged source left its row in place. A changed slice fact is a new `<NNN>`, and the previous row is `superseded`.
 - A changed purpose, boundary, or recommendation was not rewritten. `drift:` names the path, and the reply names the command that republishes that judgment.
 - No `accepted` file was edited in place. The hook's note was not treated as a new snapshot. With no `STATUS.md`, no file was written.
+- A suite-output set that differs from the accepted index is a new index `<NNN>`. The purpose was not changed. A folder without `ORIGIN.json` was not added.
