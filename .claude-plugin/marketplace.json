@@ -1,0 +1,16 @@
+{
+  "name": "plugin-project-context",
+  "owner": {
+    "name": "ADRenaline Suite"
+  },
+  "metadata": {
+    "description": "Marketplace with the Project Context plugin."
+  },
+  "plugins": [
+    {
+      "name": "plugin-project-context",
+      "source": "./",
+      "description": "Records a current picture of a project: its boundary, the facts with their sources, and which ADRenaline plugins fit, then refreshes that picture when a source changes."
+    }
+  ]
+}

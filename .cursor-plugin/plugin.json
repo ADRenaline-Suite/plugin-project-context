@@ -1,0 +1,11 @@
+{
+  "name": "plugin-project-context",
+  "displayName": "Project Context",
+  "description": "Records a current picture of a project: its boundary, the facts with their sources, and which ADRenaline plugins fit, then refreshes that picture when a source changes.",
+  "version": "0.0.1",
+  "author": { "name": "d-mente" },
+  "license": "MIT",
+  "repository": "https://github.com/ADRenaline-Suite/plugin-project-context",
+  "keywords": ["context", "project", "boundary", "refresh"],
+  "hooks": "./hooks/cursor-hooks.json"
+}

@@ -1,0 +1,22 @@
+---
+description: Keeps a project fact tied to the file it was read from, and leaves a judgment proposed
+alwaysApply: true
+---
+
+# Context fidelity
+
+Before writing, read `skills/maintain-context/SKILL.md` and only the reference for this situation.
+
+A fact that is `accepted` cites a source that was read: a path, a manifest, a script, or the output of a command, and when it was read. With no source, the statement is a hypothesis and stays `proposed`. What was not read is the words "not observed". Do not invent a purpose, a layer, a stack, a container, or an Evans relation.
+
+The index is short. A later task opens the accepted index and the one slice it needs.
+
+Several projects stay separate. The map records a relation only when a source shows it.
+
+A change is the next `<NNN>`. The previous row becomes `superseded`. Do not rewrite an `accepted` file unless the person asks to amend that same file.
+
+A recommendation starts `proposed`. Name the plugin and the signal. Do not install it and do not copy its skill.
+
+The architecture description and the ADR belong to `plugin-software-architect`. The drawing belongs to `plugin-uml-diagrams`. The domain model belongs to `plugin-backend`. The reader-facing document belongs to `plugin-documentation`. Retrieval for a model belongs to `plugin-genai`. The use case belongs to `plugin-project-manager`.
+
+The session hook may add `drift:` in `notas`. It does not write a snapshot and it does not change `estado`.
