@@ -42,7 +42,7 @@ El índice, el límite y el mapa no se detienen. Lo que no se leyó son las pala
 
 ## Entrega
 
-La carpeta es `project-context/` en la raíz del proyecto. Si `.cursor/adrenaline.json` tiene `outputDirs["plugin-project-context"]` con una ruta relativa, sin `..` y no absoluta, usa esa ruta. Si falta el archivo, la clave o una ruta válida, usa `project-context/` y, en el último caso, dilo. Crea la carpeta si no existe. No escribas fuera de ella, salvo la frase de apuntador que `/context-start` deja en `AGENTS.md`.
+La carpeta es `adrenaline/project-context/` en la raíz del proyecto. Si `.cursor/adrenaline.json` tiene `outputDirs["plugin-project-context"]` con una ruta relativa, sin `..` y no absoluta, usa esa ruta. Si falta el archivo, la clave o una ruta válida, usa `adrenaline/project-context/` y, en el último caso, dilo. Si `adrenaline/project-context/` aún no existe y `project-context/` en la raíz ya tiene el `ORIGIN.json` o el `STATUS.md` de este plugin, sigue escribiendo ahí y dilo. Crea la carpeta si no existe. No escribas fuera de ella, salvo la frase de apuntador que `/context-start` deja en `AGENTS.md`.
 
 El archivo es `<NNN>-<tipo>-<tema>.md`. `<NNN>` es el siguiente entero libre, de tres dígitos, y no se reutiliza. `<tipo>` es el id inglés de la pieza.
 
@@ -76,4 +76,4 @@ Antes de cerrar, evalúa esta lista y la lista `## Done` de la referencia de est
 
 Entrada: una carpeta `billing/` cuyo encabezado de `README.md` es «Billing API», sin más archivos fuente. El pedido es «¿qué es este proyecto?», en español, y no nombra un command.
 
-Salida `accepted`: `001-index-billing.md` (entidad de interés Billing API, fuente `README.md`; dónde mirar después nombra `002` y `003`), `002-boundary-billing.md` (dentro: este repositorio; fuera y entidades externas: «no observado») y `003-map-billing.md` (una fila, relación «no observado»). Sin corte: ninguno de los cuatro asuntos tiene fuente. Sin recomendación: no se leyó una señal. La respuesta nombra `project-context/`, los tres archivos, `001`, `002` y `003`, y `accepted`.
+Salida `accepted`: `001-index-billing.md` (entidad de interés Billing API, fuente `README.md`; dónde mirar después nombra `002` y `003`), `002-boundary-billing.md` (dentro: este repositorio; fuera y entidades externas: «no observado») y `003-map-billing.md` (una fila, relación «no observado»). Sin corte: ninguno de los cuatro asuntos tiene fuente. Sin recomendación: no se leyó una señal. La respuesta nombra `adrenaline/project-context/`, los tres archivos, `001`, `002` y `003`, y `accepted`.

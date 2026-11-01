@@ -16,7 +16,7 @@ Qué proyectos hay en este workspace y la relación que muestra una fuente entre
 
 1. Una fila para este proyecto. Más filas solo para proyectos que nombró la persona, o para un directorio hijo de este workspace que tenga su propio `.git` o su propio manifiesto. No explores fuera del workspace.
 2. Relación: una palabra que use la fuente. Las palabras observadas permitidas son `shared-kernel`, `customer-supplier`, `conformist`, `anticorruption-layer`, `separate-ways`, `open-host-service`, `published-language` y `part-of`. Usa una solo cuando una fuente nombra esa relación o la muestra (un submódulo, una dependencia por ruta, un documento que lo dice). Si no, escribe «no observado». No elijas una palabra por parecido.
-3. Cada proyecto guarda su propio `project-context/` cuando ese proyecto es un repositorio aparte. Este archivo solo apunta a la ruta.
+3. Cada proyecto guarda su propio `adrenaline/project-context/` cuando ese proyecto es un repositorio aparte. Este archivo solo apunta a la ruta.
 4. No escribas un lenguaje compartido para todas las filas.
 
 ## Plantilla

@@ -40,7 +40,7 @@ The index, the boundary, and the map do not stop. What was not read is the words
 
 ## Delivery
 
-The folder is `project-context/` at the project root. If `.cursor/adrenaline.json` has `outputDirs["plugin-project-context"]` set to a relative path, without `..` and not absolute, use that path. If the file, the key, or a valid path is missing, use `project-context/` and, in the last case, say so. Create the folder if it does not exist. Do not write outside it, except the one pointer sentence `/context-start` places in `AGENTS.md`.
+The folder is `adrenaline/project-context/` at the project root. If `.cursor/adrenaline.json` has `outputDirs["plugin-project-context"]` set to a relative path, without `..` and not absolute, use that path. If the file, the key, or a valid path is missing, use `adrenaline/project-context/` and, in the last case, say so. If `adrenaline/project-context/` does not exist yet and `project-context/` at the project root already has this plugin's `ORIGIN.json` or `STATUS.md`, keep writing there and say so. Create the folder if it does not exist. Do not write outside it, except the one pointer sentence `/context-start` places in `AGENTS.md`.
 
 The file is `<NNN>-<type>-<topic>.md`. `<NNN>` is the next free integer, three digits, and it is not reused. `<type>` is the English piece id.
 
@@ -74,4 +74,4 @@ Before you close, evaluate this list and the `## Done` list in the reference for
 
 Input: a repository folder `billing/` whose `README.md` heading is "Billing API", with no other source files. The request is "what is this project?", written in English, and it names no command.
 
-`accepted` output: `001-index-billing.md` (entity of interest Billing API, source `README.md`; where to look next names `002` and `003`), `002-boundary-billing.md` (inside: this repository; outside and external entities: "not observed"), and `003-map-billing.md` (one row, relation "not observed"). No slice: none of the four concerns has a source. No recommendation: no signal was read. The reply names `project-context/`, the three files, `001`, `002`, and `003`, and `accepted`.
+`accepted` output: `001-index-billing.md` (entity of interest Billing API, source `README.md`; where to look next names `002` and `003`), `002-boundary-billing.md` (inside: this repository; outside and external entities: "not observed"), and `003-map-billing.md` (one row, relation "not observed"). No slice: none of the four concerns has a source. No recommendation: no signal was read. The reply names `adrenaline/project-context/`, the three files, `001`, `002`, and `003`, and `accepted`.

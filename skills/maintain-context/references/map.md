@@ -14,7 +14,7 @@ Which projects are in this workspace, and the relation a source shows between th
 
 1. One row for this project. More rows only for projects the user named, or for a child directory of this workspace that contains its own `.git` or its own manifest. Do not scan outside the workspace.
 2. Relation: a word the source uses. The allowed observed words are `shared-kernel`, `customer-supplier`, `conformist`, `anticorruption-layer`, `separate-ways`, `open-host-service`, `published-language`, and `part-of`. Use one only when a source names that relation or shows it (a submodule, a path dependency, a document that says it). Otherwise write "not observed". Do not pick a word by resemblance.
-3. Each project keeps its own `project-context/` when that project is a separate repository. This file only points at the path.
+3. Each project keeps its own `adrenaline/project-context/` when that project is a separate repository. This file only points at the path.
 4. Do not write one shared language for all rows.
 
 ## Template

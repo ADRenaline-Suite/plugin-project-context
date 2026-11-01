@@ -8,7 +8,7 @@ No instala plugins. No copia sus carpetas. Recomendar nombra el plugin de la sui
 
 ## Resultado
 
-Una carpeta `project-context/` con la foto vigente del proyecto: qué entra, qué queda fuera, los hechos que se pudieron leer y de dónde salió cada uno, y qué plugins de la suite encajan. Varios proyectos producen un mapa que los relaciona, sin fundir sus modelos.
+Una carpeta `adrenaline/project-context/` con la foto vigente del proyecto: qué entra, qué queda fuera, los hechos que se pudieron leer y de dónde salió cada uno, y qué plugins de la suite encajan. Varios proyectos producen un mapa que los relaciona, sin fundir sus modelos.
 
 El agente usa después el índice aceptado y el corte que corresponde a la tarea. No carga la carpeta entera.
 
@@ -84,14 +84,14 @@ Commands (oficio `context`). Cada uno remite al skill y nombra la referencia:
 
 Rules:
 
-- `rules/output-folder.mdc` — carpeta `project-context/`.
+- `rules/output-folder.mdc` — carpeta `adrenaline/project-context/`.
 - `rules/context-fidelity.mdc` — sin fuente no hay hecho aceptado; lo no leído queda «no observado»; no se dibuja, no se escribe el ADR, no se copia otro plugin; la recomendación nace `proposed`; un hook no acepta juicios; un `accepted` no se enmienda solo. Una carpeta es salida de la suite solo si se leyó su `ORIGIN.json`.
 
-Hook, solo al implementar y solo en Cursor: un script que compara las rutas citadas por los cortes aceptados. Si una cambió, anota deriva en `STATUS.md` (`notas`). No escribe el corte nuevo. Claude Code no comparte ese archivo. El refresco portable es `/context-refresh`. El evento concreto se elige al implementar, con el esquema de hooks vigente. `afterFileEdit` sobre la propia carpeta `project-context/` no se usa: se realimentaría.
+Hook, solo al implementar y solo en Cursor: un script que compara las rutas citadas por los cortes aceptados. Si una cambió, anota deriva en `STATUS.md` (`notas`). No escribe el corte nuevo. Claude Code no comparte ese archivo. El refresco portable es `/context-refresh`. El evento concreto se elige al implementar, con el esquema de hooks vigente. `afterFileEdit` sobre la propia carpeta `adrenaline/project-context/` no se usa: se realimentaría.
 
 ## Salida
 
-Carpeta por defecto: `project-context/` (o la de `.cursor/adrenaline.json`).
+Carpeta por defecto: `adrenaline/project-context/` (o la de `.cursor/adrenaline.json`). Si `project-context/` en la raíz ya tiene la salida de este plugin, se sigue ahí.
 
 - `<NNN>-index-<tema>.md`
 - `<NNN>-boundary-<tema>.md`

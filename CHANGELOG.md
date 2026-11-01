@@ -12,5 +12,6 @@
 
 ### Changed
 
+- A new output folder is `adrenaline/project-context/`. An existing `project-context/` at the project root keeps receiving files. `outputDirs` still wins. The index also reads `ORIGIN.json` in each direct child of `adrenaline/`.
 - `/context-start` writes the first picture: the index, the boundary, each slice that has a source, the map, and the recommendation when a signal was read. A slice with no source and a recommendation with no signal are not files. It does not refresh.
 - `/context-start` writes one pointer sentence into `AGENTS.md` at the project root. It does not rewrite the rest of that file and it does not write a rule file.

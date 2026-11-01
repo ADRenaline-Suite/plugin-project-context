@@ -1,22 +1,26 @@
-# Marks drift in project-context/STATUS.md when a cited source is newer than the recorded read.
+# Marks drift in the project-context STATUS.md when a cited source is newer than the recorded read.
 # Does not write a new snapshot and does not change the state column.
 $ErrorActionPreference = "Stop"
 
 function Get-OutputDir {
     param([string]$Root)
-    $fallback = "project-context"
+    $nested = "adrenaline\project-context"
+    $legacy = "project-context"
     $config = Join-Path $Root ".cursor\adrenaline.json"
-    if (-not (Test-Path -LiteralPath $config)) { return $fallback }
-    try {
-        $json = Get-Content -Raw -LiteralPath $config | ConvertFrom-Json
-        $path = [string]$json.outputDirs."plugin-project-context"
-        if ([string]::IsNullOrWhiteSpace($path)) { return $fallback }
-        $path = $path.Replace("/", "\").Trim("\")
-        if ($path -match '(^\.\.)|(\\\.\.\\)|(\.\.$)|(^[A-Za-z]:\\)|(^\\)') { return $fallback }
-        return $path
-    } catch {
-        return $fallback
+    if (Test-Path -LiteralPath $config) {
+        try {
+            $json = Get-Content -Raw -LiteralPath $config | ConvertFrom-Json
+            $path = [string]$json.outputDirs."plugin-project-context"
+            if (-not [string]::IsNullOrWhiteSpace($path)) {
+                $path = $path.Replace("/", "\").Trim("\")
+                if ($path -notmatch '(^\.\.)|(\\\.\.\\)|(\.\.$)|(^[A-Za-z]:\\)|(^\\)') { return $path }
+            }
+        } catch { }
     }
+    $legacyStatus = Join-Path $Root "$legacy\STATUS.md"
+    $nestedStatus = Join-Path $Root "$nested\STATUS.md"
+    if ((Test-Path -LiteralPath $legacyStatus) -and -not (Test-Path -LiteralPath $nestedStatus)) { return $legacy }
+    return $nested
 }
 
 function Get-ProjectRoot {
@@ -27,6 +31,7 @@ function Get-ProjectRoot {
     }
     $candidates += (Get-Location).Path
     foreach ($candidate in $candidates) {
+        if (Test-Path -LiteralPath (Join-Path $candidate "adrenaline\project-context\STATUS.md")) { return $candidate }
         if (Test-Path -LiteralPath (Join-Path $candidate "project-context\STATUS.md")) { return $candidate }
         if (Test-Path -LiteralPath (Join-Path $candidate ".cursor\adrenaline.json")) { return $candidate }
     }

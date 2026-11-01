@@ -4,7 +4,7 @@
 
 Records a current picture of a project so a later task can open a short index and one slice, not the whole repository. It covers one project, several projects in one workspace, and a project whose shape is not known yet.
 
-Each piece lives in `skills/maintain-context/references/`. The result is Markdown in `project-context/`.
+Each piece lives in `skills/maintain-context/references/`. The result is Markdown in `adrenaline/project-context/`.
 
 The instructions are in English. The file the plugin saves follows the language of the request.
 
@@ -12,7 +12,7 @@ The instructions are in English. The file the plugin saves follows the language 
 
 The first scan does not run by itself. The session hook only marks drift after a picture already exists.
 
-Type `/context-start`. It writes the first picture in `project-context/`: the index, the boundary, a slice for each concern that has a source, the map, and the recommendation when a signal was read. A concern with no source, and a recommendation with no signal, are not files. It also writes one sentence into `AGENTS.md` at the project root, telling the agent to open the accepted index. If that sentence is already there, the file stays as it is. A purpose or an external entity the repository does not state stays "not observed". It does not refresh.
+Type `/context-start`. It writes the first picture in `adrenaline/project-context/`: the index, the boundary, a slice for each concern that has a source, the map, and the recommendation when a signal was read. A concern with no source, and a recommendation with no signal, are not files. It also writes one sentence into `AGENTS.md` at the project root, telling the agent to open the accepted index. If that sentence is already there, the file stays as it is. A purpose or an external entity the repository does not state stays "not observed". It does not refresh.
 
 The same pieces, one at a time, stay `/context-index`, `/context-boundary`, `/context-slice`, `/context-map`, and `/context-recommend`.
 
@@ -50,7 +50,7 @@ Cursor and Claude Code:
 
 Cursor only:
 
-- Rule `output-folder`, which keeps every file in `project-context/`.
+- Rule `output-folder`, which keeps every file in `adrenaline/project-context/`.
 - Rule `context-fidelity`, which keeps an accepted fact tied to the file it was read from.
 - Hook `sessionStart` in `hooks/cursor-hooks.json`. It writes `drift:` in `STATUS.md` when a cited file is newer. It does not publish a snapshot.
 
@@ -83,7 +83,9 @@ gh skill install ADRenaline-Suite/plugin-project-context
 
 It uses no variables and no services.
 
-Each delivery is saved in `project-context/` at the project root, with a monotonic `<NNN>` that is not reused. The folder keeps `STATUS.md` (`proposed` | `accepted` | `deprecated` | `superseded`). When choosing what to follow, `accepted` wins. Beside it, `ORIGIN.json` names this plugin (`suite`, `plugin`, `repository`, `convention` `adr-001`). It is not an `<NNN>` file. The index lists a folder as suite output only when that file was read. The prose follows the language of the request. The type in the file name stays the English piece id. The `STATUS.md` columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`.
+Each delivery is saved in `adrenaline/project-context/` at the project root, with a monotonic `<NNN>` that is not reused. The folder keeps `STATUS.md` (`proposed` | `accepted` | `deprecated` | `superseded`). When choosing what to follow, `accepted` wins. Beside it, `ORIGIN.json` names this plugin (`suite`, `plugin`, `repository`, `convention` `adr-001`). It is not an `<NNN>` file. The index lists a folder as suite output only when that file was read. The prose follows the language of the request. The type in the file name stays the English piece id. The `STATUS.md` columns stay `N`, `archivo`, `estado`, `sustituye`, `notas`.
+
+If `adrenaline/project-context/` does not exist yet and `project-context/` at the project root already holds this plugin's output, files keep going there.
 
 To use another folder, add `.cursor/adrenaline.json` to the project:
 

@@ -34,7 +34,7 @@ Keep the section headings, in this order: Plugin, Commands, Skills, Rules, then 
 
 ## Rules
 
-- [**output-folder**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/rules/output-folder.mdc) — Every file goes in `project-context/` (or in `outputDirs["plugin-project-context"]` of `.cursor/adrenaline.json`). The artifact follows the language of the request.
+- [**output-folder**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/rules/output-folder.mdc) — Every file goes in `adrenaline/project-context/` (or in `outputDirs["plugin-project-context"]` of `.cursor/adrenaline.json`). The artifact follows the language of the request.
 - [**context-fidelity**](https://github.com/ADRenaline-Suite/plugin-project-context/blob/main/rules/context-fidelity.mdc) — An accepted fact cites the file it was read from. What was not read stays "not observed". A recommendation starts proposed. The session hook only marks drift.
 
 ## Hooks
@@ -45,7 +45,7 @@ Keep the section headings, in this order: Plugin, Commands, Skills, Rules, then 
 ## Output
 
 - Repository: [**ADRenaline Project Context**](https://github.com/ADRenaline-Suite/plugin-project-context).
-- Folder: `project-context/` (override via `.cursor/adrenaline.json`).
+- Folder: `adrenaline/project-context/` (override via `.cursor/adrenaline.json`). An existing `project-context/` at the project root keeps receiving files.
 - Name: `<NNN>-<type>-<topic>.<ext>`, with monotonic `<NNN>`. The prose follows the language of the request. The type stays the English piece id.
 
 | Format | Description |

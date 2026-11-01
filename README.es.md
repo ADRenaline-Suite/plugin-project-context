@@ -4,7 +4,7 @@
 
 Deja una foto vigente del proyecto para que una tarea posterior abra un índice corto y un corte, no el repositorio entero. Cubre un proyecto, varios en el mismo workspace, y un proyecto cuya forma todavía no se conoce.
 
-Cada pieza vive en `skills/maintain-context/references/`. El resultado es Markdown en `project-context/`.
+Cada pieza vive en `skills/maintain-context/references/`. El resultado es Markdown en `adrenaline/project-context/`.
 
 Las instrucciones están en inglés. El archivo que guarda el plugin sigue el idioma del pedido.
 
@@ -12,7 +12,7 @@ Las instrucciones están en inglés. El archivo que guarda el plugin sigue el id
 
 El primer escaneo no arranca solo. El hook de la sesión solo marca deriva cuando ya hay una foto.
 
-Escribe `/context-start`. Deja la primera foto en `project-context/`: el índice, el límite, un corte por cada asunto que tenga fuente, el mapa y la recomendación cuando se leyó una señal. Un asunto sin fuente, y una recomendación sin señal, no son archivos. También escribe una frase en `AGENTS.md` en la raíz del proyecto, para que el agente abra el índice aceptado. Si esa frase ya está, el archivo se queda igual. Un propósito o una entidad externa que el repositorio no dice queda «no observado». No refresca.
+Escribe `/context-start`. Deja la primera foto en `adrenaline/project-context/`: el índice, el límite, un corte por cada asunto que tenga fuente, el mapa y la recomendación cuando se leyó una señal. Un asunto sin fuente, y una recomendación sin señal, no son archivos. También escribe una frase en `AGENTS.md` en la raíz del proyecto, para que el agente abra el índice aceptado. Si esa frase ya está, el archivo se queda igual. Un propósito o una entidad externa que el repositorio no dice queda «no observado». No refresca.
 
 Las mismas piezas, una por vez, siguen siendo `/context-index`, `/context-boundary`, `/context-slice`, `/context-map` y `/context-recommend`.
 
@@ -50,7 +50,7 @@ Cursor y Claude Code:
 
 Solo Cursor:
 
-- Rule `output-folder`, que deja cada archivo en `project-context/`.
+- Rule `output-folder`, que deja cada archivo en `adrenaline/project-context/`.
 - Rule `context-fidelity`, que ata un hecho aceptado al archivo del que se leyó.
 - Hook `sessionStart` en `hooks/cursor-hooks.json`. Escribe `drift:` en `STATUS.md` cuando un archivo citado es más nuevo. No publica una instantánea.
 
@@ -83,7 +83,9 @@ gh skill install ADRenaline-Suite/plugin-project-context
 
 No usa variables ni servicios.
 
-Cada entrega se guarda en `project-context/` en la raíz del proyecto, con un `<NNN>` monótono que no se reutiliza. La carpeta mantiene `STATUS.md` (`proposed` | `accepted` | `deprecated` | `superseded`). Al elegir qué seguir, manda `accepted`. Junto a él, `ORIGIN.json` nombra este plugin (`suite`, `plugin`, `repository`, `convention` `adr-001`). No es un archivo `<NNN>`. El índice lista una carpeta como salida de la suite solo cuando ese archivo se leyó. La prosa sigue el idioma del pedido. El tipo del nombre sigue en inglés. Las columnas de `STATUS.md` siguen `N`, `archivo`, `estado`, `sustituye`, `notas`.
+Cada entrega se guarda en `adrenaline/project-context/` en la raíz del proyecto, con un `<NNN>` monótono que no se reutiliza. La carpeta mantiene `STATUS.md` (`proposed` | `accepted` | `deprecated` | `superseded`). Al elegir qué seguir, manda `accepted`. Junto a él, `ORIGIN.json` nombra este plugin (`suite`, `plugin`, `repository`, `convention` `adr-001`). No es un archivo `<NNN>`. El índice lista una carpeta como salida de la suite solo cuando ese archivo se leyó. La prosa sigue el idioma del pedido. El tipo del nombre sigue en inglés. Las columnas de `STATUS.md` siguen `N`, `archivo`, `estado`, `sustituye`, `notas`.
+
+Si `adrenaline/project-context/` aún no existe y `project-context/` en la raíz ya tiene la salida de este plugin, los archivos siguen ahí.
 
 Para usar otra carpeta, añade `.cursor/adrenaline.json` al proyecto:
 

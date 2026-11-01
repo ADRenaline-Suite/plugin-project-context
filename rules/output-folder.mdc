@@ -5,9 +5,11 @@ alwaysApply: true
 
 # Output folder
 
-Every file this plugin creates goes in `project-context/` at the project root.
+Every file this plugin creates goes in `adrenaline/project-context/` at the project root.
 
-If `.cursor/adrenaline.json` exists and `outputDirs["plugin-project-context"]` holds a path, use that path. The path is relative to the project root, with no `..` and not absolute. If it is not valid, use `project-context/` and say so.
+If `.cursor/adrenaline.json` exists and `outputDirs["plugin-project-context"]` holds a path, use that path. The path is relative to the project root, with no `..` and not absolute. If it is not valid, use `adrenaline/project-context/` and say so.
+
+If `adrenaline/project-context/` does not exist yet and `project-context/` at the project root already has this plugin's `ORIGIN.json` or `STATUS.md`, keep writing there and say so.
 
 Create the folder if it does not exist. Do not write anywhere else. Do not write `.cursor/rules`, an agents folder, commands, or skills. `/context-start` may add one pointer sentence to `AGENTS.md` at the project root. It does not rewrite the rest of that file.
 
